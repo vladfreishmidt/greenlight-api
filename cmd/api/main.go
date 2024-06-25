@@ -1,8 +1,8 @@
 package main
 
 import (
-	"context"      // New import
-	"database/sql" // New import
+	"context"
+	"database/sql"
 	"flag"
 	"fmt"
 	"log"
@@ -10,16 +10,11 @@ import (
 	"os"
 	"time"
 
-	// Import the pq driver so that it can register itself with the database/sql
-	// package. Note that we alias this import to the blank identifier, to stop the Go
-	// compiler complaining that the package isn't being used.
 	_ "github.com/lib/pq"
 )
 
 const version = "1.0.0"
 
-// Add a db struct field to hold the configuration settings for our database connection
-// pool. For now this only holds the DSN, which we will read in from a command-line flag.
 type config struct {
 	port int
 	env  string
@@ -39,7 +34,7 @@ func main() {
 	flag.IntVar(&cfg.port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
 
-	flag.StringVar(&cfg.db.dsn, "db-dsn", "", "PostgreSQL DSN")
+	flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://greenlight:pa55word@localhost:5432/greenlight?sslmode=disable", "PostgreSQL DSN")
 
 	flag.Parse()
 
